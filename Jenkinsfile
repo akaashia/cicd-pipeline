@@ -12,11 +12,11 @@ pipeline {
             steps {
                 script {
                     if (env.BRANCH_NAME == 'main') {
-                        env.APP_PORT = '3000'
+                        env.APP_PORT = '3100'
                         env.IMAGE_NAME = 'nodemain:v1.0'
                         env.CONTAINER_NAME = 'node-main'
                     } else if (env.BRANCH_NAME == 'dev') {
-                        env.APP_PORT = '3001'
+                        env.APP_PORT = '3101'
                         env.IMAGE_NAME = 'nodedev:v1.0'
                         env.CONTAINER_NAME = 'node-dev'
                     } else {
@@ -49,7 +49,7 @@ pipeline {
             steps {
                 sh '''
                 docker ps -a --format "{{.Names}}" | grep -w ${CONTAINER_NAME} && docker rm -f ${CONTAINER_NAME} || true
-                docker run -d --name ${CONTAINER_NAME} -p ${APP_PORT}:3000 ${IMAGE_NAME}
+                docker run -d --name ${CONTAINER_NAME} -p ${APP_PORT}:3100 ${IMAGE_NAME}
                 '''
             }
         }
